@@ -101,23 +101,23 @@ msn.bar(df)
 plt.show()
 
 
-curr_description = df[df['rating'].isna()].describe()
-# miss_num_stay =  df[df['number_of_stays'].isna()].describe()
-# miss_5_star = df[df['5_stars'].isna()].describe()
+miss_rating = df[df['rating'].isna()].describe()
+miss_num_stay =  df[df['number_of_stays'].isna()].describe()
+miss_5_star = df[df['5_stars'].isna()].describe()
+miss_reviews_per_month = df[df['reviews_per_month'].isna()].describe()
 
 
 #impute data from NAN to 0
 df = df.fillna({'reviews_per_month': 0,
                 'number_of_stays': 0,
                 '5_stars': 0,
-                'last_review': 0,#UNSURE ON THIS ONE BUT ITS ASSUMED ITS NEVER REVIEWED SOO....
                 'rating': 0})
 
 
 
 df['is_rated'] = df['rating'].notna().astype(int)
 
-curr_description_price=df[df['price'].isna()].describe()
+miss_prices=df[df['price'].isna()].describe()
 
 df['price'] = df['price'].str.strip('$')
 df['price'] = pd.to_numeric(df['price'], errors='coerce')
@@ -133,7 +133,6 @@ plt.ylabel('Price')
 plt.show()
 ##########################
 median_prices = df.groupby('room_type')['price'].median()
-print(median_prices)
 
 ##########################
 # =============================================================================
